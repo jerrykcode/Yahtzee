@@ -48,6 +48,7 @@ public class Category extends GCompound {
 			grids[i].setFillColor(Color.WHITE);
 			add(grids[i], x, 0);
 		}
+		initScoreCalculator();
 	}
 	
 	public ArrayList<GObject> getReponsiveObjects(int columnIndex) {
@@ -73,6 +74,25 @@ public class Category extends GCompound {
 		if (scoreLabels[columnIndex] != null) {
 			remove(scoreLabels[columnIndex]);
 			scoreLabels[columnIndex] = null;
+		}
+	}
+	
+	private void initScoreCalculator() {
+		switch (categoryString) {
+		case "Ones" : calculator = new OnesToSixesCalculator(1); break;
+		case "Twos" : calculator = new OnesToSixesCalculator(2); break;
+		case "Threes" : calculator = new OnesToSixesCalculator(3); break;
+		case "Fours" : calculator = new OnesToSixesCalculator(4); break;
+		case "Fives" : calculator = new OnesToSixesCalculator(5); break;
+		case "Sixes" : calculator = new OnesToSixesCalculator(6); break;
+		case "Three of a Kind" : calculator = new SameKindCalculator(3); break;
+		case "Four of a Kind" : calculator = new SameKindCalculator(4); break;
+		case "Full House[25]" : calculator = new FullHouseCalculator(); break;
+		case "Small Straight[30]" : calculator = new StraightCalculator(false); break;
+		case "Large Straight[40]" : calculator = new StraightCalculator(true); break;
+		case "Yahtzee![50]" : calculator = new YahtzeeCalculator(); break;
+		case "Chance" : calculator = new ChanceCalculator(); break;
+		default: calculator = null; break;
 		}
 	}
 	
